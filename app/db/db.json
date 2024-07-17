@@ -1,0 +1,7 @@
+
+{
+  "users": [
+    { "id": 1, "username": "user1", "loggedIn": true },
+    { "id": 2, "username": "user2", "loggedIn": false }
+  ]
+}
