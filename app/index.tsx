@@ -1,28 +1,33 @@
 import { checkUserLoggedIn } from "@/components/checkUserLoggedIn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link, Redirect, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { Text } from "react-native";
+import { Button, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const HomeIndex = () => {
-    const route =useRouter()
-    useEffect(() => {
-      const checkLoginStatus = async () => {
-        const loggedIn = await checkUserLoggedIn();
-        if (!loggedIn) {
-          console.log("check");
-          route.replace("/login")
-        }
-      };
-      checkLoginStatus();
-    }, []);
+const App = () => {
+  const route = useRouter();
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const loggedIn = await checkUserLoggedIn();
+      if (!loggedIn) {
+        console.log("check");
+        route.replace("/login");
+      }
+    };
+    checkLoginStatus();
+  }, []);
+  const logOut = async () => {
+    await AsyncStorage.removeItem("token");
+    route.replace("/login");
+  };
+  return (
+    <SafeAreaView>
+      <Link href={"/home"}>go home</Link>
+      <Text>salam</Text>
+      <Button title="log out" onPress={logOut} />
+    </SafeAreaView>
+  );
+};
 
-    return ( 
-        <SafeAreaView>
-            <Link href={"/login"}>go login</Link>
-            <Text>salam</Text>
-        </SafeAreaView>
-     );
-}
- 
-export default HomeIndex;
+export default App;
