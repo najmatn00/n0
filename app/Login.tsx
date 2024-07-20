@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   Button,
@@ -17,100 +17,71 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 
 const formSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
-  full_name: z.string().min(3, "Full name must be at least 3 characters"),
-  // TODO: fix schema
-  password: z.string().min(2, "Password must be at least 8 characters"),
+  Phone: z
+    .string()
+    .min(10, { message: "Must be a valid mobile number" })
+    .max(14, { message: "Must be a valid mobile number" }),
 });
 
 const Login = () => {
   const { control, handleSubmit, formState } = useForm({
     defaultValues: {
-      email: "",
-      full_name: "",
-      password: "",
+      Phone: "",
     },
     resolver: zodResolver(formSchema), // Assuming zodResolver is defined elsewhere
   });
   const { replace } = useRouter();
   const onSubmit = async (data: any) => {
     Alert.alert("Successful", JSON.stringify(data));
-    await AsyncStorage.setItem("token", "token");
-    replace("/");
+    await AsyncStorage.setItem("token", "najmeh");
+    replace("LoginSms");
   };
-
+  const [isFocused, setIsFocused] = useState(false);
   return (
-    <SafeAreaView className="w-full h-full justify-center bg-white   border-white space-y-4 ">
+    <SafeAreaView className="w-full h-full  bg-white justify-center  border-white space-y-6">
+      <View className="  w-full space-y-6 mb-8">
+        <Text className=" text-[30px] font-bold text-[#1F41BB] text-center ">
+          وارد شو
+        </Text>
+        <Text className=" text-[20px] text-center font-bold ">
+          خوش آمدید به اپلیکیشن ما
+        </Text>
+      </View>
       <Controller
         control={control}
-        name="email"
-        render={({ field: { value, onChange, onBlur } }) => (
-          <View className="mb-4">
-            <TextInput
-              className=" border-2 text-black  border-slate-400 mx-16 px-4 py-1 rounded-2xl   text-lg"
-              placeholder="Email"
-              placeholderTextColor={"gray"}
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-            />
-            {formState.errors.email && (
-              <Text style={{ color: "red", textAlign: "center", marginTop: 4 }}>
-                {formState.errors.email.message}
-              </Text>
-            )}
-          </View>
-        )}
-      />
-      <Controller
-        control={control}
-        name="full_name"
-        render={({ field: { value, onChange, onBlur } }) => (
-          <View className="mb-4">
-            <TextInput
-              className=" border-2 text-black  border-slate-400 mx-16 px-4 py-1 rounded-2xl  text-lg "
-              placeholder="Full Name"
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              placeholderTextColor={"gray"}
-            />
-            {formState.errors.full_name && (
-              <Text style={{ color: "red", textAlign: "center", marginTop: 4 }}>
-                {formState.errors.full_name.message}
-              </Text>
-            )}
-          </View>
-        )}
-      />
-      <Controller
-        control={control}
-        name="password"
+        name="Phone"
         render={({ field: { value, onChange, onBlur } }) => (
           <View>
             <TextInput
-              className=" border-2 text-black  border-slate-400 mx-16 px-4 py-1 rounded-2xl  text-lg "
-              placeholder="Password"
-              secureTextEntry
+              className={`border-2 text-black bg-[#F1F4FF] px-4 py-2 rounded-lg text-lg text-right mx-16 ${
+                isFocused ? "border-[#1F41BB]" : "border-slate-300"
+              }`}
+              placeholder="شماره تلفن"
               value={value}
               onChangeText={onChange}
-              onBlur={onBlur}
-              placeholderTextColor={"gray"}
+              onBlur={() => {
+                onBlur();
+                setIsFocused(false);
+              }}
+              onFocus={() => setIsFocused(true)}
+              placeholderTextColor={"#494949"}
             />
-            {formState.errors.password && (
-              <Text style={{ color: "red", textAlign: "center", marginTop: 4 }}>
-                {formState.errors.password.message}
+            {formState.errors.Phone && (
+              <Text style={{ color: "red", textAlign: "center", marginTop: 6 }}>
+                {formState.errors.Phone.message}
               </Text>
             )}
           </View>
         )}
       />
-      <View className="w-fit mx-36  ">
-        <Button
-          title="Submit"
-          onPress={handleSubmit(onSubmit)}
-          color={"#d344f2"}
-        />
+      <View className="w-full ">
+        <View className=" mx-16 rounded-2xl  ">
+          <Button
+            title="تایید شماره تلفن"
+            onPress={handleSubmit(onSubmit)}
+            color={"#1F41BB"}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );

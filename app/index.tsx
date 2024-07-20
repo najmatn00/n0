@@ -11,15 +11,15 @@ const App = () => {
     const checkLoginStatus = async () => {
       const loggedIn = await checkUserLoggedIn();
       if (!loggedIn) {
-        console.log("check");
-        route.replace("/login");
+        // console.log("check");
+        route.replace("/Login");
       }
     };
     checkLoginStatus();
   }, []);
   const logOut = async () => {
     await AsyncStorage.removeItem("token");
-    route.replace("/login");
+    route.replace("/Login");
   };
   return (
     <SafeAreaView>

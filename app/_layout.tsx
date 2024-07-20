@@ -20,9 +20,6 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
-  const route = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -35,10 +32,8 @@ export default function RootLayout() {
 
   return (
     <Stack>
-      <Stack.Screen
-        options={{ headerBackVisible: false }}
-        name="login"
-      />
+      <Stack.Screen options={{ headerShown: false }} name="Login" />
+      <Stack.Screen options={{ headerShown: false }} name="LoginSms" />
     </Stack>
   );
 }
