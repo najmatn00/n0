@@ -49,19 +49,31 @@ const Welcome = () => {
   return (
     <View>
       {showQuestions ? (
-        <View className="w-full h-full justify-center flex-1 ">
-          <Text className="text-2xl font-bold text-right">سوالات اولیه</Text>
-          <Text className=" text-right text-xl font-semibold">سوال 1:</Text>
+        <View className="w-full h-full justify-center ">
+          <Text className="text-2xl font-bold text-center mb-4">
+            سوالات اولیه
+          </Text>
+          <Text className=" text-right text-xl font-semibold mx-4 mb-4">
+            سوال 1:
+          </Text>
           <TextInput
+            className="mx-4 border-2 py-2 px-2 mb-4"
             placeholder="پاسخ سوال 1"
             onChangeText={(text) => handleAnswerChange("question1", text)}
           />
-          <Text className=" text-right text-xl font-semibold">سوال 2:</Text>
+          <Text className=" text-right text-xl font-semibold mx-4 mb-4">
+            سوال 2:
+          </Text>
           <TextInput
+            className="mx-4 border-2 py-2 px-2 mb-4"
             placeholder="پاسخ سوال 2"
             onChangeText={(text) => handleAnswerChange("question2", text)}
           />
-          <Button title="ارسال" onPress={handleSubmit} />
+          <View className="w-full justify-center">
+            <View className="mx-4 mt-4">
+              <Button title="ارسال" onPress={handleSubmit} />
+            </View>
+          </View>
         </View>
       ) : (
         <View className="w-full justify-center h-full">

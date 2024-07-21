@@ -52,7 +52,7 @@ export default function ProfileChildren() {
             bottomDivider
           >
             <ListItem.Content className="">
-              <ListItem.Title className=" w-full text-right border ">
+              <ListItem.Title className=" w-full text-right ">
                 {l.name}
               </ListItem.Title>
               <ListItem.Subtitle className=" w-full text-right">
