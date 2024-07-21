@@ -34,8 +34,11 @@ const Login = () => {
   const onSubmit = async (data: any) => {
     Alert.alert("Successful", JSON.stringify(data));
     await AsyncStorage.setItem("token", "najmeh");
+    await AsyncStorage.setItem("phone", data.Phone); //save in AsyncStorage
+    SetPhone(data.Phone);//save in  state for Show phone 
     replace("LoginSms");
   };
+  const [phone,SetPhone]=useState("")
   const [isFocused, setIsFocused] = useState(false);
   return (
     <SafeAreaView className="w-full h-full  bg-white justify-center  border-white space-y-6">

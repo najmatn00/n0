@@ -23,8 +23,8 @@ const App = () => {
   };
   return (
     <SafeAreaView>
-      <Link href={"/home"}>go home</Link>
-      <Text>salam</Text>
+      <Link  href={"/home"}>go home</Link>
+      <Link href={"/Profile"}>profile</Link>
       <Button title="log out" onPress={logOut} />
     </SafeAreaView>
   );

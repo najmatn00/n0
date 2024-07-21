@@ -29,7 +29,7 @@ export default function LoginSms() {
   const onSubmit = async (data: any) => {
     Alert.alert("Successful", JSON.stringify(data));
     await AsyncStorage.setItem("token", "najmeh");
-    replace("/");
+    replace("Welcom");
   };
   return (
     <View>
