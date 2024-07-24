@@ -6,7 +6,7 @@ const home = () => {
     return ( 
         <SafeAreaView>
             <Text>home</Text>
-          <Link href={"/Chat"}>go chat</Link>
+          <Link className=" text-xl" href={"/Chat"}>go chat</Link>
         </SafeAreaView>
      );
 }

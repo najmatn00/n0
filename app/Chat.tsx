@@ -5,28 +5,28 @@ import { View, Text, Button, TextInput } from "react-native";
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    // بارگذاری پیام‌ها از AsyncStorage در زمان لود اولیه صفحه
-    const loadMessages = async () => {
-      try {
-        const storedMessages = await AsyncStorage.getItem("chatMessages");
-        if (storedMessages) {
-          setMessages(JSON.parse(storedMessages));
-        }
-      } catch (error) {
-        console.error("Failed to load messages", error);
-      }
-    };
+  // useEffect(() => {
+  //   // بارگذاری پیام‌ها از AsyncStorage در زمان لود اولیه صفحه
+  //   const loadMessages = async () => {
+  //     try {
+  //       const storedMessages = await AsyncStorage.getItem("chatMessages");
+  //       if (storedMessages) {
+  //         setMessages(JSON.parse(storedMessages));
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to load messages", error);
+  //     }
+  //   };
 
-    loadMessages();
-  }, []);
+  //   loadMessages();
+  // }, []);
 
   const onSend = useCallback((message = []) => {
     // ذخیره پیام‌ها در حالت محلی
     setMessages((previousMessages) => {
       const updatedMessages = GiftedChat.append(previousMessages, message);
       // ذخیره پیام‌های جدید در AsyncStorage
-      AsyncStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+      // AsyncStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
       return updatedMessages;
     });
   }, []);
