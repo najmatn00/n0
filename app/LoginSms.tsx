@@ -40,7 +40,13 @@ export default function LoginSms() {
           className=" justify-center border w-full mt-8"
           source={require("../assets/images/head.png")}
         ></Image>
-        <View className="w-full h-[78vh]   justify-center  border-white space-y-6">
+        <View className=" justify-center w-full  items-center">
+          <Image
+            className=" w-72 h-72"
+            source={require("../assets/gift/instaN.gif")}
+          ></Image>
+        </View>
+        <View className="w-full h-[40vh] mt-4  justify-center  border-white space-y-6">
           <View className="  w-full space-y-6 ">
             <Text
               style={styles.fontE}

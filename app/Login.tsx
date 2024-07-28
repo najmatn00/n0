@@ -8,7 +8,7 @@ import {
   View,
   TextInput,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -48,7 +48,15 @@ const Login = () => {
         className=" justify-center border w-full mt-8"
         source={require("../assets/images/head.png")}
       ></Image>
-      <View className="w-full h-[78vh]   justify-center  border-white space-y-6">
+      
+        <View className=" justify-center w-full  items-center">
+          <Image
+            className=" w-72 h-72"
+            source={require("../assets/gift/insta.gif")}
+          ></Image>
+       
+      </View>
+      <View className="w-full h-[39vh] border-white mt-6 space-y-6">
         <View className="  w-full space-y-6 ">
           <Text
             style={styles.fontE}
