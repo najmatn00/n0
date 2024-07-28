@@ -7,6 +7,8 @@ import {
   Text,
   View,
   TextInput,
+  Image,
+  TouchableOpacity
 } from "react-native";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -33,54 +35,93 @@ export default function LoginSms() {
   };
   return (
     <View>
-      <SafeAreaView className="w-full h-full  bg-white justify-center  border-white space-y-6">
-        <View className="  w-full space-y-6 mb-8">
-          <Text className=" text-[30px] font-bold text-[#1F41BB] text-center ">
-            وارد شو
-          </Text>
-          <Text className=" text-[20px] text-center font-bold ">
-            خوش آمدید به اپلیکیشن ما
-          </Text>
-        </View>
-        <Controller
-          control={control}
-          name="Code"
-          render={({ field: { value, onChange, onBlur } }) => (
-            <View>
-              <TextInput
-                className={`border-2 text-black bg-[#F1F4FF] px-4 py-2 rounded-lg text-lg text-right mx-16 ${
-                  isFocused ? "border-[#1F41BB]" : "border-slate-300"
-                }`}
-                placeholder="کد تایید"
-                value={value}
-                onChangeText={onChange}
-                onBlur={() => {
-                  onBlur();
-                  setIsFocused(false);
-                }}
-                onFocus={() => setIsFocused(true)}
-                placeholderTextColor={"#494949"}
-              />
-              {formState.errors.Code && (
+      <SafeAreaView className="">
+        <Image
+          className=" justify-center border w-full mt-8"
+          source={require("../assets/images/head.png")}
+        ></Image>
+        <View className="w-full h-[78vh]   justify-center  border-white space-y-6">
+          <View className="  w-full space-y-6 ">
+            <Text
+              style={styles.fontE}
+              className=" text-[40px]  text-[#005C78] mr-10 "
+            >
+              ورود
+            </Text>
+            <Text
+              style={styles.fontReg}
+              className=" text-[18px] mr-10 text-[#9796A1] "
+            >
+              {" "}
+              کد تایید شما
+            </Text>
+          </View>
+          <Controller
+            control={control}
+            name="Code"
+            render={({ field: { value, onChange, onBlur } }) => (
+              <View>
+                <TextInput
+                  className={`border-2 text-black bg-[#F1F4FF] px-4 py-2 rounded-lg text-lg text-right mx-10 ${
+                    isFocused ? "border-[#1F41BB]" : "border-[#EEEEEE]"
+                  }`}
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={() => {
+                    onBlur();
+                    setIsFocused(false);
+                  }}
+                  onFocus={() => setIsFocused(true)}
+                  placeholderTextColor={"#494949"}
+                />
+                {formState.errors.Code && (
+                  <Text
+                    style={{ color: "red", textAlign: "center", marginTop: 6 }}
+                  >
+                    {formState.errors.Code.message}
+                  </Text>
+                )}
+              </View>
+            )}
+          />
+          <View className="w-full ">
+            <View className=" mx-16 rounded-2xl  ">
+              {/* <Button
+                title="تایید"
+                onPress={handleSubmit(onSubmit)}
+                color={"#1F41BB"}
+              /> */}
+              <TouchableOpacity className="" onPress={handleSubmit(onSubmit)}>
                 <Text
-                  style={{ color: "red", textAlign: "center", marginTop: 6 }}
+                  style={styles.fontE}
+                  className="bg-[#E88D67] text-[28px] py-2 rounded-3xl text-center text-white "
                 >
-                  {formState.errors.Code.message}
+                  ورود
                 </Text>
-              )}
+              </TouchableOpacity>
             </View>
-          )}
-        />
-        <View className="w-full ">
-          <View className=" mx-16 rounded-2xl  ">
-            <Button
-              title="تایید"
-              onPress={handleSubmit(onSubmit)}
-              color={"#1F41BB"}
-            />
           </View>
         </View>
+        <Image
+          className="border w-full  "
+          source={require("../assets/images/footer.png")}
+        ></Image>
       </SafeAreaView>
     </View>
   );
 }
+const styles = StyleSheet.create({
+  fontE: {
+    fontFamily: "Extra",
+  },
+  fontS: {
+    fontFamily: "semi",
+  },
+  fontReg: {
+    fontFamily: "reg",
+  },
+  bt: {
+    fontSize: 14,
+    textAlign: "center",
+  },
+});

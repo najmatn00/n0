@@ -16,7 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 const formSchema = z.object({
   Phone: z
@@ -100,21 +100,31 @@ const Login = () => {
               color={"#E88D67"}
             /> */}
             <TouchableOpacity className="" onPress={handleSubmit(onSubmit)}>
-              <Text style={styles.fontE} className="bg-[#E88D67] text-[28px] py-2 rounded-3xl text-center text-white ">ورود</Text>
+              <Text
+                style={styles.fontE}
+                className="bg-[#E88D67] text-[28px] py-2 rounded-3xl text-center text-white "
+              >
+                ورود
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View className="flex flex-row-reverse mr-16 gap-1 items-center  w-full justify-center">
+        {/* <View className="flex flex-row-reverse mr-16 gap-1 items-center  w-full justify-center">
           <Text
             style={styles.fontS}
             className=" text-[14px] text-[#5B5B5E] font-semibold "
           >
             حساب کاربری ندارید؟
           </Text>
-          <Text style={styles.fontE} className="  text-[16px] text-[#005C78] ">
-            ثبت نام
-          </Text>
-        </View>
+          <Link href={"/SignUp"}>
+            <Text
+              style={styles.fontE}
+              className="  text-[16px] text-[#005C78] "
+            >
+              ثبت نام
+            </Text>
+          </Link>
+        </View> */}
       </View>
       <Image
         className="border w-full  "
