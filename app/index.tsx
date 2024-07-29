@@ -4,6 +4,7 @@ import { Link, Redirect, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { Button, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Home from "./home";
 
 const App = () => {
   const route = useRouter();
@@ -23,7 +24,8 @@ const App = () => {
   };
   return (
     <SafeAreaView>
-      <Link  href={"/home"}>go home</Link>
+      {/* <Link  href={"/home"}>go home</Link> */}
+      <Home></Home>
       <Link href={"/Profile"}>profile</Link>
       <Button title="log out" onPress={logOut} />
     </SafeAreaView>
