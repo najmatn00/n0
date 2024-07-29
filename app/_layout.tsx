@@ -39,7 +39,7 @@ export default function RootLayout() {
       <Stack.Screen options={{ headerShown: false }} name="LoginSms" />
       <Stack.Screen options={{ headerShown: false }} name="Welcom" />
       <Stack.Screen options={{ headerShown: false }} name="Chat" />
-
+      <Stack.Screen options={{ headerShown: false }} name="index" />
       <Stack.Screen name="Profile" />
     </Stack>
   );
