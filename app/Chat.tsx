@@ -1,87 +1,112 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Bubble, GiftedChat, InputToolbar, Send } from "react-native-gifted-chat";
+import React, { useState, useEffect, useCallback} from "react";
+import {
+  Bubble,
+  GiftedChat,
+  InputToolbar,
+  Send,
+} from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Text, Button, TextInput } from "react-native";
+import { View, Text, ImageBackground, Image, StyleSheet } from "react-native";
+
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
 
-  // useEffect(() => {
-  //   // بارگذاری پیام‌ها از AsyncStorage در زمان لود اولیه صفحه
-  //   const loadMessages = async () => {
-  //     try {
-  //       const storedMessages = await AsyncStorage.getItem("chatMessages");
-  //       if (storedMessages) {
-  //         setMessages(JSON.parse(storedMessages));
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to load messages", error);
-  //     }
-  //   };
+  // بارگذاری پیام‌ها از AsyncStorage در زمان لود اولیه صفحه
+  useEffect(() => {
+    const loadMessages = async () => {
+      try {
+        const storedMessages = await AsyncStorage.getItem("chatMessages");
+        if (storedMessages) {
+          setMessages(JSON.parse(storedMessages));
+        }
+      } catch (error) {
+        console.error("Failed to load messages", error);
+      }
+    };
 
-  //   loadMessages();
-  // }, []);
+    loadMessages();
+  }, []);
 
-  const onSend = useCallback((message = []) => {
-    // ذخیره پیام‌ها در حالت محلی
+  const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) => {
-      const updatedMessages = GiftedChat.append(previousMessages, message);
+      const updatedMessages = GiftedChat.append(previousMessages, messages);
       // ذخیره پیام‌های جدید در AsyncStorage
-      // AsyncStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+      AsyncStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
       return updatedMessages;
     });
   }, []);
 
   return (
-    <GiftedChat
-      messages={messages} // پیام‌های موجود
-      onSend={(messages: any) => onSend(messages)} // تابع ارسال پیام
-      user={{
-        _id: 1, // شناسه کاربر
-      }}
-      // سفارشی‌سازی حباب‌های پیام
-      renderBubble={(props) => (
-        <Bubble
-          {...props}
-          wrapperStyle={{
-            right: {
-              backgroundColor: "#f0f", // رنگ پس‌زمینه پیام‌های ارسالی
-            },
-            left: {
-              backgroundColor: "#0f0", // رنگ پس‌زمینه پیام‌های دریافتی
-            },
+    <View className="mt-8" style={{ flex: 1 }}>
+      <ImageBackground
+        source={require("../assets/images/background.png")}
+        style={{ flex: 1 }}
+      >
+        <View>
+          <Image
+            className="w-full "
+            source={require("../assets/images/headHome.png")}
+          ></Image>
+          <Text style={styles.fontS} className=" absolute top-4  right-6 text-[#CCCCCC] text-[13px] ">
+            چه خبر آیسان خوبی؟
+          </Text>
+          <Text style={styles.fontS} className="absolute top-10 right-6 text-[#CCCCCC] text-[13px] ">
+            برای یک روز هیجان انگیز آماده ای؟
+          </Text>
+        </View>
+        <GiftedChat
+          messages={messages}
+          onSend={(messages) => onSend(messages)}
+          user={{
+            _id: 1,
           }}
+          renderBubble={(props) => (
+            <Bubble
+              {...props}
+              wrapperStyle={{
+                right: {
+                  backgroundColor: "#E88D67",
+                },
+                left: {
+                  backgroundColor: "#F4F4F4",
+                },
+              }}
+              textStyle={{
+                right: {
+                  color: "black",
+                  fontFamily: "semi",
+                  fontSize: 13,
+                  
+                  // رنگ متن پیام‌های ارسالی
+                },
+                left: {
+                  fontSize:13,
+                  color: "black",
+                  fontFamily:"semi"// رنگ متن پیام‌های دریافتی
+                },
+                
+              }}
+            />
+          )}
+          isTyping={true}
         />
-      )}
-      // سفارشی‌سازی دکمه ارسال
-      // renderSend={(props) => (
-      //   <Send {...props}>
-      //     <View style={{ marginRight: 10, marginBottom: 5 }}>
-      //       <Text style={{ color: "blue" }}>Send</Text>
-      //     </View>
-      //   </Send>
-      // )}
-      // متن پیش‌فرض در ورودی پیام
-      // placeholder="Type a message..."
-      // سفارشی‌سازی نوار ورودی پیام
-      // renderInputToolbar={(props) => (
-      //   <InputToolbar
-      //     {...props}
-      //     containerStyle={{
-      //       borderTopColor: "#333", // رنگ لبه بالای نوار ورودی
-      //       borderTopWidth: 2, // عرض لبه بالای نوار ورودی
-      //     }}
-      //   />
-      // )}
-      // سفارشی‌سازی فوتر چت
-      // renderChatFooter={() => (
-      //   <View style={{ padding: 10 }}>
-      //     <Text style={{ fontSize: 12, color: "gray" }}>Footer text here</Text>
-      //   </View>
-      // )}
-      // نمایش وضعیت تایپ کردن
-      isTyping={true}
-    />
+      </ImageBackground>
+    </View>
   );
 };
-
+const styles = StyleSheet.create({
+  fontE: {
+    fontFamily: "Extra",
+  },
+  fontS: {
+    fontFamily: "semi",
+  },
+  fontReg: {
+    fontFamily: "reg",
+  },
+  bt: {
+    fontSize: 14,
+    textAlign: "center",
+  },
+});
 export default ChatScreen;

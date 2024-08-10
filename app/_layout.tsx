@@ -19,6 +19,9 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    Extra: require("../assets/fonts/YekanBakh-ExtraBold.ttf"),
+    semi: require("../assets/fonts/YekanBakh-SemiBold.ttf"),
+    reg: require("../assets/fonts/YekanBakh-Regular.ttf"),
   });
   useEffect(() => {
     if (loaded) {
@@ -32,10 +35,14 @@ export default function RootLayout() {
 
   return (
     <Stack>
+       <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
       <Stack.Screen options={{ headerShown: false }} name="Login" />
       <Stack.Screen options={{ headerShown: false }} name="LoginSms" />
       <Stack.Screen options={{ headerShown: false }} name="Welcom" />
       <Stack.Screen options={{ headerShown: false }} name="Chat" />
+      <Stack.Screen options={{ headerShown: false }} name="index" />
+      <Stack.Screen options={{ headerShown: false }} name="home/index" />
+
       <Stack.Screen name="Profile" />
     </Stack>
   );

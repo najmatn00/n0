@@ -7,14 +7,16 @@ import {
   Text,
   View,
   TextInput,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
+// import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 const formSchema = z.object({
   Phone: z
@@ -35,59 +37,122 @@ const Login = () => {
     Alert.alert("Successful", JSON.stringify(data));
     await AsyncStorage.setItem("token", "najmeh");
     await AsyncStorage.setItem("phone", data.Phone); //save in AsyncStorage
-    SetPhone(data.Phone);//save in  state for Show phone 
+    SetPhone(data.Phone); //save in  state for Show phone
     replace("LoginSms");
   };
-  const [phone,SetPhone]=useState("")
+  const [phone, SetPhone] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <SafeAreaView className="w-full h-full  bg-white justify-center  border-white space-y-6">
-      <View className="  w-full space-y-6 mb-8">
-        <Text className=" text-[30px] font-bold text-[#1F41BB] text-center ">
-          وارد شو
-        </Text>
-        <Text className=" text-[20px] text-center font-bold ">
-          خوش آمدید به اپلیکیشن ما
-        </Text>
+    <SafeAreaView className="">
+      <Image
+        className=" justify-center border w-full mt-8"
+        source={require("../assets/images/head.png")}
+      ></Image>
+      <View className=" justify-center w-full  items-center">
+        <Image
+          className=" w-72 h-72"
+          source={require("../assets/gift/insta.gif")}
+        ></Image>
       </View>
-      <Controller
-        control={control}
-        name="Phone"
-        render={({ field: { value, onChange, onBlur } }) => (
-          <View>
-            <TextInput
-              className={`border-2 text-black bg-[#F1F4FF] px-4 py-2 rounded-lg text-lg text-right mx-16 ${
-                isFocused ? "border-[#1F41BB]" : "border-slate-300"
-              }`}
-              placeholder="شماره تلفن"
-              value={value}
-              onChangeText={onChange}
-              onBlur={() => {
-                onBlur();
-                setIsFocused(false);
-              }}
-              onFocus={() => setIsFocused(true)}
-              placeholderTextColor={"#494949"}
-            />
-            {formState.errors.Phone && (
-              <Text style={{ color: "red", textAlign: "center", marginTop: 6 }}>
-                {formState.errors.Phone.message}
-              </Text>
-            )}
-          </View>
-        )}
-      />
-      <View className="w-full ">
-        <View className=" mx-16 rounded-2xl  ">
-          <Button
-            title="تایید شماره تلفن"
-            onPress={handleSubmit(onSubmit)}
-            color={"#1F41BB"}
-          />
+      <View className="w-full h-[39vh] border-white mt-6 space-y-6">
+        <View className="  w-full space-y-6 ">
+          <Text
+            style={styles.fontE}
+            className=" text-[40px]  text-[#005C78] mr-10 "
+          >
+            ورود
+          </Text>
+          <Text
+            style={styles.fontReg}
+            className=" text-[18px] mr-10 text-[#9796A1] "
+          >
+            شماره شما
+          </Text>
         </View>
+        <Controller
+          control={control}
+          name="Phone"
+          render={({ field: { value, onChange, onBlur } }) => (
+            <View>
+              <TextInput
+                className={`border-2 text-black bg-[#F1F4FF] px-4 py-2 rounded-lg text-lg text-right mx-10 ${
+                  isFocused ? "border-[#1F41BB]" : "border-[#EEEEEE]"
+                }`}
+                // placeholder="شماره تلفن"
+                value={value}
+                onChangeText={onChange}
+                onBlur={() => {
+                  onBlur();
+                  setIsFocused(false);
+                }}
+                onFocus={() => setIsFocused(true)}
+                placeholderTextColor={"#494949"}
+              />
+              {formState.errors.Phone && (
+                <Text
+                  style={{ color: "red", textAlign: "center", marginTop: 6 }}
+                >
+                  {formState.errors.Phone.message}
+                </Text>
+              )}
+            </View>
+          )}
+        />
+        <View className="w-full ">
+          <View className=" mx-16 rounded-2xl text-[28px] ">
+            {/* <Button
+              title="ورود"
+              onPress={handleSubmit(onSubmit)}
+              color={"#E88D67"}
+            /> */}
+            <TouchableOpacity className="" onPress={handleSubmit(onSubmit)}>
+              <Text
+                style={styles.fontE}
+                className="bg-[#E88D67] text-[28px] py-2 rounded-3xl text-center text-white "
+              >
+                ورود
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        {/* <View className="flex flex-row-reverse mr-16 gap-1 items-center  w-full justify-center">
+          <Text
+            style={styles.fontS}
+            className=" text-[14px] text-[#5B5B5E] font-semibold "
+          >
+            حساب کاربری ندارید؟
+          </Text>
+          <Link href={"/SignUp"}>
+            <Text
+              style={styles.fontE}
+              className="  text-[16px] text-[#005C78] "
+            >
+              ثبت نام
+            </Text>
+          </Link>
+        </View> */}
       </View>
+      <Image
+        className="border w-full  "
+        source={require("../assets/images/footer.png")}
+      ></Image>
     </SafeAreaView>
   );
 };
+const styles = StyleSheet.create({
+  fontE: {
+    fontFamily: "Extra",
+  },
+  fontS: {
+    fontFamily: "semi",
+  },
+  fontReg: {
+    fontFamily: "reg",
+  },
+  bt: {
+    fontSize: 14,
+    textAlign: "center",
+  },
+});
 
 export default Login;
