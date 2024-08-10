@@ -16,7 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ProfileChildren from "./profileChildren";
+import ProfileChildren from "../profileChildren";
 
 function Profile() {
   const [phone, setPhone] = useState("");
@@ -32,7 +32,7 @@ function Profile() {
       <View className=" w-full h-full items-center mt-20 space-y-10">
         <Image
           className=" justify-center border w-36 h-36"
-          source={require("../assets/images/a.png")}
+          source={require("../../assets/images/a.png")}
         ></Image>
         <View className=" space-y-2">
           <Text className=" font-bold text-base">شماره تلفن</Text>

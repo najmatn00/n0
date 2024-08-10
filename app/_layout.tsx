@@ -10,7 +10,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { checkUserLoggedIn } from "../components/checkUserLoggedIn"; // فرض می‌کنیم که یک تابع برای بررسی وضعیت لاگین کاربر دارید
 import { Navigator, Redirect, Stack, useRouter } from "expo-router"; // Assuming expo-router is used
-import HomeIndex from ".";
+import HomeIndex from "./index1";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,15 +35,15 @@ export default function RootLayout() {
 
   return (
     <Stack>
-       <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
-      <Stack.Screen options={{ headerShown: false }} name="Login" />
+    
+      <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
+      {/* <Stack.Screen options={{ headerShown: false }} name="Login" />
       <Stack.Screen options={{ headerShown: false }} name="LoginSms" />
       <Stack.Screen options={{ headerShown: false }} name="Welcom" />
       <Stack.Screen options={{ headerShown: false }} name="Chat" />
       <Stack.Screen options={{ headerShown: false }} name="index" />
       <Stack.Screen options={{ headerShown: false }} name="home/index" />
-
-      <Stack.Screen name="Profile" />
+      <Stack.Screen name="Profile" /> */}
     </Stack>
   );
 }

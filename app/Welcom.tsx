@@ -26,7 +26,7 @@ const Welcome = () => {
     checkFirstLaunch();
   }, []);
 
-  const handleAnswerChange = (question, answer) => {
+  const handleAnswerChange = (question: any, answer: any) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [question]: answer,
