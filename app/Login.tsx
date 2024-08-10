@@ -38,7 +38,7 @@ const Login = () => {
     await AsyncStorage.setItem("token", "najmeh");
     await AsyncStorage.setItem("phone", data.Phone); //save in AsyncStorage
     SetPhone(data.Phone); //save in  state for Show phone
-    replace("LoginSms");
+    replace("/LoginSms");
   };
   const [phone, SetPhone] = useState("");
   const [isFocused, setIsFocused] = useState(false);

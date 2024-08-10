@@ -16,7 +16,7 @@ const Welcome = () => {
           setShowQuestions(true);
           await AsyncStorage.setItem("hasLaunched", "true");
         } else {
-          replace("/home"); // Navigate directly to home if not the first launch
+          replace("/"); // Navigate directly to home if not the first launch
         }
       } catch (error) {
         console.error("Error checking first launch:", error);
@@ -36,7 +36,7 @@ const Welcome = () => {
   const handleSubmit = async () => {
     try {
       await AsyncStorage.setItem("userAnswers", JSON.stringify(answers));
-      replace("/home"); // Navigate to home after submitting answers
+      replace("/"); // Navigate to home after submitting answers
     } catch (error) {
       console.error("Error saving answers:", error);
     }

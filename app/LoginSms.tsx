@@ -8,7 +8,7 @@ import {
   View,
   TextInput,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -29,9 +29,9 @@ export default function LoginSms() {
   const [isFocused, setIsFocused] = useState(false);
   const { replace } = useRouter();
   const onSubmit = async (data: any) => {
-    Alert.alert("Successful", JSON.stringify(data));
+    // Alert.alert("Successful", JSON.stringify(data));
     await AsyncStorage.setItem("token", "najmeh");
-    replace("Welcom");
+    replace("/Welcom");
   };
   return (
     <View>
