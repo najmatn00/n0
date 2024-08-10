@@ -35,8 +35,8 @@ export default function RootLayout() {
 
   return (
     <Stack>
-    
       <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
+      <Stack.Screen options={{ headerShown: false,headerShadowVisible:false }} name="Login" />
       {/* <Stack.Screen options={{ headerShown: false }} name="Login" />
       <Stack.Screen options={{ headerShown: false }} name="LoginSms" />
       <Stack.Screen options={{ headerShown: false }} name="Welcom" />

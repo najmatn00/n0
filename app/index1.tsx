@@ -9,27 +9,8 @@ import { checkUserLoggedIn } from "@/components/checkUserLoggedIn";
 
 
 const App = () => {
-  const route = useRouter();
-
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      const loggedIn = await checkUserLoggedIn();
-      if (!loggedIn) {
-        route.replace("/Login");
-      }
-    };
-
-    checkLoginStatus();
-  }, []);
-
-  const logOut = async () => {
-    await AsyncStorage.removeItem("token");
-    route.replace("/Login");
-  };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Button title="Log Out" onPress={logOut} />
     </SafeAreaView>
   );
 };
