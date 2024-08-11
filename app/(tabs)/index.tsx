@@ -10,11 +10,10 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import CircularProgress from "react-native-circular-progress-indicator";
-import { Calendar } from "react-native-calendars";
 import { checkUserLoggedIn } from "@/components/checkUserLoggedIn";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// آرایه‌ای از داده‌های استوری‌های پیشنهادی
+
 const data = [
   { id: "1", text: "استوری صبح بخیر" },
   { id: "2", text: "استوری عکس محصول به همراه نظرسنجی" },
@@ -34,6 +33,7 @@ const Index = () => {
     };
 
     checkLoginStatus();
+    loadProgressAndItems();  // Load saved progress and items on startup
   }, []);
 
   const logOut = async () => {
@@ -41,26 +41,51 @@ const Index = () => {
     route.replace("/Login");
   };
 
-  // تعریف دو حالت (state) یکی برای درصد پیشرفت و دیگری برای آیتم‌های انتخاب‌شده
   const [progress, setProgress] = useState(0);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  // // تابعی برای مدیریت کلیک روی آیتم‌ها
+  const saveProgressAndItems = async (updatedSelectedItems: string[], updatedProgress: number) => {
+    const currentTime = Date.now();
+    await AsyncStorage.setItem("selectedItems", JSON.stringify(updatedSelectedItems));
+    await AsyncStorage.setItem("progress", updatedProgress.toString());
+    await AsyncStorage.setItem("timestamp", currentTime.toString());
+  };
+
+  const loadProgressAndItems = async () => {
+    const storedItems = await AsyncStorage.getItem("selectedItems");
+    const storedProgress = await AsyncStorage.getItem("progress");
+    const storedTimestamp = await AsyncStorage.getItem("timestamp");
+
+    if (storedItems && storedProgress && storedTimestamp) {
+      const oneDay = 24 * 60 * 60 * 1000;//یک روز به میلی ثانیه
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - parseInt(storedTimestamp);
+
+      if (elapsedTime < oneDay) {
+        setSelectedItems(JSON.parse(storedItems));
+        setProgress(parseFloat(storedProgress));
+      } else {
+        // If more than a day has passed, clear the data
+        await AsyncStorage.removeItem("selectedItems");
+        await AsyncStorage.removeItem("progress");
+        await AsyncStorage.removeItem("timestamp");
+      }
+    }
+  };
+
   const handleItemPress = (id: string) => {
-    // کپی از آرایه آیتم‌های انتخاب‌شده
     let updatedSelectedItems = [...selectedItems];
-    // بررسی اینکه آیا آیتم قبلاً انتخاب شده است یا نه
     if (updatedSelectedItems.includes(id)) {
-      // اگر آیتم قبلاً انتخاب شده بود، آن را از آرایه حذف می‌کنیم
       updatedSelectedItems = updatedSelectedItems.filter((item) => item !== id);
     } else {
-      // در غیر اینصورت، آیتم را به آرایه اضافه می‌کنیم
       updatedSelectedItems.push(id);
     }
-    // به‌روزرسانی حالت آیتم‌های انتخاب‌شده
+
+    const updatedProgress = (updatedSelectedItems.length / data.length) * 100;
     setSelectedItems(updatedSelectedItems);
-    // به‌روزرسانی درصد پیشرفت بر اساس تعداد آیتم‌های انتخاب‌شده
-    setProgress((updatedSelectedItems.length / data.length) * 100);
+    setProgress(updatedProgress);
+
+    saveProgressAndItems(updatedSelectedItems, updatedProgress);
   };
 
   return (
@@ -76,65 +101,43 @@ const Index = () => {
             برای یک روز هیجان انگیز آماده‌ای؟
           </Text>
         </View>
-        {/* <View style={styles.dateContainer}>
-          <Icon name="calendar" size={20} color="#333" />
-          <Text style={styles.date}>{getPersianDate(selectedDate)}</Text>
-       </View> */}
         <Image
           className=" rounded-full bg-[#E88D67]  absolute -top-2 left-10"
           source={require("../../assets/images/profile.png")}
         ></Image>
-        {/* <Text style={styles.date}>۱۴۰۳ آبان</Text> */}
-        {/* <Calendar
-        onDayPress={onDayPress}
-        markedDates={{
-          [selectedDate]: { selected: true, marked: true, selectedColor: 'blue' },
-        }}
-        theme={{
-          selectedDayBackgroundColor: '#00adf5',
-          todayTextColor: '#00adf5',
-          arrowColor: 'orange',
-        }}
-      /> */}
       </View>
       <View className="px-10">
-        {/* عنوان استوری‌های پیشنهادی */}
         <Text className=" text-[#005C78] text-[22px] font-bold text-center mt-6">
           استوری های پیشنهادی امروز
         </Text>
-        {/* نمایش نمودار پیشرفت */}
         <View className=" items-center my-6">
           <CircularProgress
-            value={progress} // درصد پیشرفت
-            radius={80} // شعاع دایره
-            activeStrokeWidth={15} // ضخامت نوار فعال
-            inActiveStrokeWidth={15} // ضخامت نوار غیر فعال
-            progressValueColor="#006989" // رنگ مقدار پیشرفت
-            inActiveStrokeColor="#EFEFEF" // رنگ نوار غیر فعال
-            activeStrokeColor="#E88D67" // رنگ نوار فعال
+            value={progress}
+            radius={80}
+            activeStrokeWidth={15}
+            inActiveStrokeWidth={15}
+            progressValueColor="#006989"
+            inActiveStrokeColor="#EFEFEF"
+            activeStrokeColor="#E88D67"
           />
         </View>
-        {/* لیست استوری‌های پیشنهادی */}
         <FlatList
-          data={data} // داده‌های لیست
-          keyExtractor={(item) => item.id} // استخراج کلید هر آیتم
+          data={data}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            // آیتم لیست با قابلیت کلیک
             <TouchableOpacity onPress={() => handleItemPress(item.id)}>
               <View style={styles.storyItem}>
-                {/* متن استوری */}
                 <Text style={styles.storyText}>{item.text}</Text>
-                {/* آیکون چک‌باکس */}
                 <Icon
                   name={
                     selectedItems.includes(item.id)
                       ? "checkbox"
                       : "square-outline"
-                  } // انتخاب آیکون بر اساس وضعیت انتخاب‌شده
+                  }
                   size={20}
                   color={
                     selectedItems.includes(item.id) ? "#006989" : "#006989"
-                  } // رنگ آیکون بر اساس وضعیت انتخاب‌شده
+                  }
                 />
               </View>
             </TouchableOpacity>
@@ -146,37 +149,6 @@ const Index = () => {
 };
 
 const styles = StyleSheet.create({
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 15,
-  },
-  dateContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  greeting: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  subGreeting: {
-    fontSize: 14,
-    color: "#666",
-  },
-  date: {
-    fontSize: 16,
-    color: "#333",
-  },
-  suggestedStoriesTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-    marginBottom: 20,
-  },
   storyItem: {
     flexDirection: "row",
     alignItems: "center",
