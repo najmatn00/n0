@@ -30,6 +30,7 @@ export default function LoginSms() {
   const { replace } = useRouter();
   const onSubmit = async (data: any) => {
     // Alert.alert("Successful", JSON.stringify(data));
+    const jsonData = JSON.stringify(data);
     await AsyncStorage.setItem("token", "najmeh");
     replace("/Welcom");
   };

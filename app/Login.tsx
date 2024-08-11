@@ -34,7 +34,8 @@ const Login = () => {
   });
   const { replace } = useRouter();
   const onSubmit = async (data: any) => {
-    Alert.alert("Successful", JSON.stringify(data));
+    // Alert.alert("Successful", JSON.stringify(data));
+    const jsonData = JSON.stringify(data);
     await AsyncStorage.setItem("token", "najmeh");
     await AsyncStorage.setItem("phone", data.Phone); //save in AsyncStorage
     SetPhone(data.Phone); //save in  state for Show phone
@@ -115,22 +116,6 @@ const Login = () => {
             </TouchableOpacity>
           </View>
         </View>
-        {/* <View className="flex flex-row-reverse mr-16 gap-1 items-center  w-full justify-center">
-          <Text
-            style={styles.fontS}
-            className=" text-[14px] text-[#5B5B5E] font-semibold "
-          >
-            حساب کاربری ندارید؟
-          </Text>
-          <Link href={"/SignUp"}>
-            <Text
-              style={styles.fontE}
-              className="  text-[16px] text-[#005C78] "
-            >
-              ثبت نام
-            </Text>
-          </Link>
-        </View> */}
       </View>
       <Image
         className="border w-full  "

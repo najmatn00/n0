@@ -37,13 +37,12 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
       <Stack.Screen options={{ headerShown: false,headerShadowVisible:false }} name="Login" />
-      {/* <Stack.Screen options={{ headerShown: false }} name="Login" />
-      <Stack.Screen options={{ headerShown: false }} name="LoginSms" />
-      <Stack.Screen options={{ headerShown: false }} name="Welcom" />
+      <Stack.Screen options={{ headerShown: false,headerShadowVisible:false }} name="LoginSms" />
+      {/* <Stack.Screen options={{ headerShown: false }} name="Welcom" />
       <Stack.Screen options={{ headerShown: false }} name="Chat" />
       <Stack.Screen options={{ headerShown: false }} name="index" />
       <Stack.Screen options={{ headerShown: false }} name="home/index" />
-      <Stack.Screen name="Profile" /> */}
+      <Stack.Screen name="Profile" /> */} 
     </Stack>
   );
 }

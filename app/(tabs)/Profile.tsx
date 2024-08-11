@@ -29,14 +29,17 @@ function Profile() {
   }, []);
   return (
     <SafeAreaView className=" w-full h-full">
-      <View className=" w-full h-full items-center mt-20 space-y-10">
-        <Image
-          className=" justify-center border w-36 h-36"
-          source={require("../../assets/images/a.png")}
+      <Image className=" w-full" source={require("../../assets/images/headP.png")}></Image>
+       <View className="bg-[#E88D67] w-32 h-32 rounded-full justify-center absolute top-24 left-[33%]  ">
+         <Image
+          className=" justify-center absolute -top-11 left-[7%] "
+          source={require("../../assets/images/p.png")}
         ></Image>
+      </View>
+      <View className=" w-full h-full items-center mt-20 space-y-10 relative ">
         <View className=" space-y-2">
-          <Text className=" font-bold text-base">شماره تلفن</Text>
-          <Text className=" text-black font-semibold border-[#1F41BB] border-2 py-2 pr-44 pl-2 rounded-lg text-right">
+          <Text className=" font-bold text-base text-[#9796A1]">شماره تلفن</Text>
+          <Text className=" text-[#111719] font-semibold border-[#EEEEEE] border-2 py-2 pr-44 pl-2 rounded-lg text-right">
             {phone}
           </Text>
         </View>
@@ -48,8 +51,8 @@ function Profile() {
         </View>
         <View className="w-full ">
           <View className=" mx-16 rounded-2xl  ">
-            <TouchableOpacity className="bg-[#1F41BB] py-2 rounded-lg">
-              <Text className="text-center text-white font-semibold text-base">
+            <TouchableOpacity className="">
+              <Text className="bg-[#E88D67] text-[28px] py-2 rounded-3xl text-center text-white">
                 ثبت تغییرات
               </Text>
             </TouchableOpacity>
