@@ -39,13 +39,13 @@ const ChatScreen = () => {
   return (
     <View className="mt-8" style={{ flex: 1 }}>
       <ImageBackground
-        source={require("../assets/images/background.png")}
+        source={require("../../assets/images/background.png")}
         style={{ flex: 1 }}
       >
         <View>
           <Image
             className="w-full "
-            source={require("../assets/images/headHome.png")}
+            source={require("../../assets/images/headHome.png")}
           ></Image>
           <Text style={styles.fontS} className=" absolute top-4  right-6 text-[#CCCCCC] text-[13px] ">
             چه خبر آیسان خوبی؟
